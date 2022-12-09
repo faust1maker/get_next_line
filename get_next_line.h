@@ -6,7 +6,7 @@
 /*   By: fbrisson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 10:58:06 by fbrisson          #+#    #+#             */
-/*   Updated: 2022/12/05 10:18:56 by fbrisson         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:14:10 by fbrisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
 # include <stdio.h>
-# include <sys/types.h>
-# include <sys/stat.h>
 
-# define BUFFER_SIZE 4096
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 4096
+# endif
 
 size_t	ft_strlen(const char *s);
 
-char	*ft_memset_zero(char *s, int c, size_t n);
+char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
+
+void	*ft_calloc(size_t nmemb, size_t size);
 
 #endif

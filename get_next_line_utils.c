@@ -6,7 +6,7 @@
 /*   By: fbrisson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 10:57:50 by fbrisson          #+#    #+#             */
-/*   Updated: 2022/12/06 10:06:55 by fbrisson         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:14:29 by fbrisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,20 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_memset_zero(char *s, int c, size_t n)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
 	size_t	i;
+	char	*tab;
 
-	i = 0;
-	while (i < n)
-		((unsigned char *)s)[i++] = c;
-	return (s);
+	if (nmemb > sizeof(char) * INT_MAX || size > sizeof(char) * INT_MAX)
+		return (NULL);
+	tab = malloc(nmemb * size);
+	if (!tab)
+		return (NULL);
+	i = -1;
+	while (++i < nmemb * size)
+		tab[i] = 0;
+	return (tab);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -39,16 +45,12 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		j;
 
 	if (!s1)
-	{
-		s1 = malloc(sizeof(*s1));
-		s1[0] = '\0';
-	}
+		s1 = ft_calloc(1, 1);
 	if (!s1 || !s2)
-		return (NULL);
+		return (free(s1), free(s2), NULL);
 	dest = malloc(sizeof(*dest) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!dest)
-		return (NULL);
-	ft_memset_zero(dest, '\0', (ft_strlen(s1) + ft_strlen(s2)));
+		return (free(s1), free(s2), NULL);
 	i = -1;
 	j = -1;
 	while (s1[++i])
@@ -56,26 +58,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[++j])
 		dest[i + j] = s2[j];
 	dest[i + j] = '\0';
-	return (dest);
-}
-
-char	*ft_strdup(char *s)
-{
-	char	*dest;
-	int		i;
-
-	if (!s)
-		return (NULL);
-	dest = malloc(sizeof(*dest) * (ft_strlen(s) + 1));
-	if (!dest)
-		return (NULL);
-	while (s[i])
-	{
-		dest[i] = s[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	return (free(s1), dest);
 }
 
 /*
@@ -89,4 +72,4 @@ int	main(void)
 	printf("%s", ft_strjoin(str1, str2));
 	a = printf("%s", ft_strdup(str1));
 	return (0);
-}
+}*/
