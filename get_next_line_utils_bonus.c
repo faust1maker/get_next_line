@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbrisson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 10:57:50 by fbrisson          #+#    #+#             */
-/*   Updated: 2023/01/12 14:09:24 by fbrisson         ###   ########.fr       */
+/*   Updated: 2023/02/02 09:20:35 by fbrisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
 	size_t	len;
 
+	if (!s)
+		return (0);
 	len = 0;
 	while (s[len])
 		len++;
@@ -27,8 +29,6 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	size_t	i;
 	char	*tab;
 
-	if (nmemb > sizeof(char) * INT_MAX || size > sizeof(char) * INT_MAX)
-		return (NULL);
 	tab = malloc(nmemb * size);
 	if (!tab)
 		return (NULL);

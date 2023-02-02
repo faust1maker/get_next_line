@@ -6,7 +6,7 @@
 /*   By: fbrisson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 10:44:15 by fbrisson          #+#    #+#             */
-/*   Updated: 2023/01/13 09:46:03 by fbrisson         ###   ########.fr       */
+/*   Updated: 2023/02/02 10:16:32 by fbrisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,11 @@ static char	*checkline(char *save)
 		len++;
 	if (save[len] == '\n')
 		len++;
+	if (ft_strlen(save) == 0)
+		return (free(save), NULL);
 	buffer = malloc(sizeof(*buffer) * (ft_strlen(save) - len) + 1);
 	if (!buffer)
-		return (free(buffer), free(save), NULL);
+		return (free(save), NULL);
 	i = 0;
 	while (save[len] != '\0')
 	{
@@ -115,23 +117,24 @@ char	*get_next_line(int fd)
 int	main(void)
 {
 	char	*res;
+	char	*res2;
 	int	fd;
 	int	fd2;
-	int	i = 1;
 
-	fd = open("42_with_nl", O_RDONLY);
-	//fd2 = open("test2.txt", O_RDONLY);
+	fd = open("emptyfile.txt", O_RDONLY);
+	fd2 = open("loremipsum.txt", O_RDONLY);
 
-	while (i <= 10)
+	res = get_next_line(fd);
+	res2 = get_next_line(fd2);
+	while (res || res2)
 	{
-		res = get_next_line(fd);
 		printf("%s", res);
 		free(res);
-		//res = get_next_line(fd2);
-		//printf("%s", res);
-		//free(res);
-		i++;
+		res = get_next_line(fd);
+		printf("%s", res2);
+		free(res2);
+		res2 = get_next_line(fd2);
 	}
 	close(fd);
-	return (0);
+	close(fd2);
 }*/
